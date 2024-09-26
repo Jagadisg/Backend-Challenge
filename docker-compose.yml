@@ -1,26 +1,26 @@
-version: '3.8'  # Specify the Docker Compose version
+version: '3.8' 
 
 services:
   app:
     build: .
-    container_name: flask_app  # Name of the container
+    container_name: flask_app
     volumes:
-      - .:/app  # Mount the current directory to /app in the container
-      - ./core/store.sqlite3:/app/core/store.sqlite3  # Mount the SQLite DB file to persist data
+      - .:/app
+      - ./core/store.sqlite3:/app/core/store.sqlite3
     ports:
-      - "7755:7755"  # Map port 7755 on the host to port 7755 in the container
+      - "7755:7755"
     environment:
-      GUNICORN_PORT: 7755  # Optional: Set environment variables for Gunicorn
-      GUNICORN_NUMBER_WORKERS: 2  # Number of Gunicorn workers
+      GUNICORN_PORT: 7755
+      GUNICORN_NUMBER_WORKERS: 2
     depends_on:
-      - db  # Ensure db is started before app
+      - db
 
   db:
-    image: nouchka/sqlite3  # Use an SQLite image (or any other preferred image)
+    image: nouchka/sqlite3
     container_name: sqlite_db
     volumes:
-      - ./core/store.sqlite3:/data/store.sqlite3  # Persist the database file
-    restart: unless-stopped  # Restart policy
+      - ./core/store.sqlite3:/data/store.sqlite3
+    restart: unless-stopped
 
 networks:
   default:
