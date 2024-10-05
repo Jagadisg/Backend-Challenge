@@ -1,4 +1,4 @@
-# Hacker news fastapi application
+# Backend Challenge
 
 ## Prerequisites
 
